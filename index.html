@@ -1,0 +1,621 @@
+<html>
+<head> 
+    <title>Quad Core's Motorcycle Shop</title>
+    <link rel="icon" type="image/png" href="https://i.ibb.co/0GsKj8y/image-2024-12-25-221422674.png"> 
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f6f6f6;
+            padding: 40px;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        .header {
+            margin-bottom: 20px;
+            margin-right: 20px;
+        }
+        .header h1 {
+            font-size: 28px;
+            color: #e3423d;
+            font-weight: 600;
+            text-align: center;
+        }
+        .product-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            max-width: 1600px;
+            gap: 20px;
+        }
+        .product {
+            background-color: #ffffff;
+            border: 2px solid #69be28;
+            border-radius: 8px;
+            text-align: left;
+            padding: 20px;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .product:hover {
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+            transform: scale(1.05);
+        }
+        .product img {
+            margin: 0;
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .product h3 {
+            font-size: 20px;
+            color: #000;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .product .details {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        .product .price {
+            font-size: 18px;
+            color: #888;
+            margin-bottom: 15px;
+        }
+        .product button {
+            align-self: center;
+            padding: 10px 20px;
+            border: none;
+            color: #fff;
+            background-color: #474747;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .product button:hover {
+            background-color: #000;
+            color: #69be28;
+        }
+        .year {
+            font-size: 16px;
+            color: #000;
+            margin-bottom: 5px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: #fff;
+            border-radius: 8px;
+            width: 500px;
+            padding: 20px;
+            text-align: left;
+            position: relative;
+        }
+        .modal-content img {
+            width: 100%;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .modal-content h3 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .modal-content .price {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        .modal-content .options {
+            margin-bottom: 20px;
+        }
+        .modal-content .options label {
+            font-size: 14px;
+            color: #555;
+            margin-right: 10px;
+        }
+        .modal-content .options input[type="radio"] {
+            margin-right: 5px;
+        }
+        .modal-content .quantity {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .modal-content .quantity input {
+            width: 50px;
+            text-align: center;
+            margin: 0 10px;
+            padding: 5px;
+        }
+        .modal-content button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: #2c3e50;
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .modal-content .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Motorcycles</h1>
+    </div>
+    <div class="product-container">
+        <div class="product">
+            <img src="https://i.ibb.co/WF5Q474/cq5dam-thumbnail-600-600-1.png">
+            <div class="year">2024</div>
+            <h3>Ninja ZX-6R 40th Anniversary Edition</h3>
+            <div class="details">
+                <ul>
+                    <li>Smooth Flowing Ninja ZX Styling</li>
+                    <li>Performance Optimised for Street-Riding Exhilaration</li>
+                    <li>Advanced Technology</li>
+                    <li>SRP:₱729,000</li>
+                </ul>
+            </div>
+            <button onclick="openModal('NinjaZX6R40thAnniversaryEdition')">Choose options</button>
+            </div>
+            <div class="modal" id="NinjaZX6R40thAnniversaryEditionModal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal('NinjaZX6R40thAnniversaryEdition')">x</span>
+                    <img src="https://i.ibb.co/WF5Q474/cq5dam-thumbnail-600-600-1.png">
+                    <h3>Ninja ZX-6R 40th Anniversary Edition</h3>
+                    <div class="quantity">
+                        <label>Quantity:</label>
+                        <button onclick="decreaseQuantity('NinjaZX6R40thAnniversaryEdition')">-</button>
+                        <input type="number" value="1" min="1" id="quantityNinjaZX6R40thAnniversaryEdition">
+                        <button onclick="increaseQuantity('NinjaZX6R40thAnniversaryEdition')">+</button>
+                    </div>
+                    <button>Add to cart</button>
+                </div>
+            </div>
+        <div class="product">
+            <img src="https://i.ibb.co/gJrnR8p/25-ZX636-J-40-RBK1-DRF3-CG-A.jpg">
+            <div class="year">2024</div>
+            <h3>Ninja ZX-6R</h3>
+            <div class="details">
+                <ul>
+                    <li>Smooth Flowing Ninja ZX Styling</li>
+                    <li>Performance Optimized for Street-Riding Exhilaration</li>
+                    <li>Advanced Technology</li>
+                    <li>SRP:₱707,000</li>
+                </ul>
+            </div>
+            <button onclick="openModal('NinjaZX6R')">Choose options</button>
+        </div>
+        <div class="modal" id="NinjaZX6RModal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('NinjaZX6R')">x</span>
+                <img src="https://i.ibb.co/gJrnR8p/25-ZX636-J-40-RBK1-DRF3-CG-A.jpg">
+                <h3>Ninja ZX-6R</h3>
+                <div class="quantity">
+                    <label>Quantity:</label>
+                    <button onclick="decreaseQuantity('NinjaZX6R')">-</button>
+                    <input type="number" value="1" min="1" id="quantityNinjaZX6R">
+                    <button onclick="increaseQuantity('NinjaZX6R')">+</button>
+                </div>
+                <button>Add to cart</button>
+            </div>
+        </div>
+        <div class="product">
+            <img src="https://i.ibb.co/rQJNTwB/25-ZX400-S-141-GN1-DRF3-CG-A.jpg">
+            <div class="year">2024</div>
+            <h3>Ninja ZX-4RR</h3>
+            <div class="details">
+                <ul>
+                    <li>Class-Leading Engine Performance</li>
+                    <li>Ultra-Compatible Nimble Supersport Chassis</li>
+                    <li>Premium Components and Features</li>
+                    <li>SRP:₱499,000</li>
+                </ul>
+            </div>
+            <button onclick="openModal('NinjaZX4RR')">Choose options</button>
+        </div>
+        <div class="modal" id="NinjaZX4RRModal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('NinjaZX4RR')">x</span>
+                <img src="https://i.ibb.co/rQJNTwB/25-ZX400-S-141-GN1-DRF3-CG-A.jpg">
+                <h3>Ninja ZX-4RR</h3>
+                <div class="quantity">
+                    <label>Quantity:</label>
+                    <button onclick="decreaseQuantity('NinjaZX4RR')">-</button>
+                    <input type="number" value="1" min="1" id="quantityNinjaZX4RR">
+                    <button onclick="increaseQuantity('NinjaZX4RR')">+</button>
+                </div>
+                <button>Add to cart</button>
+            </div>
+        </div>
+        <div class="product">
+            <img src="https://i.ibb.co/t4yZhnR/cq5dam-thumbnail-600-600-2.png">
+            <div class="year">2024</div>
+            <h3>Ninja ZX-25R SE</h3>
+            <div class="details">
+                <ul>
+                    <li>Screaming in-line four in 250cc class</li>
+                    <li>WSBK-inspired chassis</li>
+                    <li>Adjustable Front Suspension</li>
+                    <li>SRP:₱442,000</li>
+                </ul>
+            </div>
+            <button onclick="openModal('NinjaZX25RSE')">Choose options</button>
+        </div>
+        <div class="modal" id="NinjaZX25RSEModal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('NinjaZX25RSE')">x</span>
+                <img src="https://i.ibb.co/t4yZhnR/cq5dam-thumbnail-600-600-2.png">
+                <h3>Ninja ZX-25R SE</h3>
+                <div class="quantity">
+                    <label>Quantity:</label>
+                    <button onclick="decreaseQuantity('NinjaZX25RSE')">-</button>
+                    <input type="number" value="1" min="1" id="quantityNinjaZX25RSE">
+                    <button onclick="increaseQuantity('NinjaZX25RSE')">+</button>
+                </div>
+                <button>Add to cart</button>
+            </div>
+        </div>
+        <div class="product">
+            <img src="https://i.ibb.co/RPN7QZC/cq5dam-thumbnail-600-600-3.png">
+            <div class="year">2024</div>
+            <h3>Ninja ZX-25R</h3>
+            <div class="details">
+                <ul>
+                    <li>Screaming in-line four in 250cc class</li>
+                    <li>WSBK-Inspired Chassis</li>
+                    <li>TFT Colour Instrumentation</li>
+                    <li>SRP:₱406,000</li>
+                </ul>
+            </div>
+            <button onclick="openModal('NinjaZX25R')">Choose options</button>
+        </div>
+        <div class="modal" id="NinjaZX25RModal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('NinjaZX25R')">x</span>
+                <img src="https://i.ibb.co/RPN7QZC/cq5dam-thumbnail-600-600-3.png">
+                <h3>Ninja ZX-25R</h3>
+                <div class="quantity">
+                    <label>Quantity:</label>
+                    <button onclick="decreaseQuantity('NinjaZX25R')">-</button>
+                    <input type="number" value="1" min="1" id="quantityNinjaZX25R">
+                    <button onclick="increaseQuantity('NinjaZX25R')">+</button>
+                </div>
+                <button>Add to cart</button>
+            </div>
+        </div>
+        <div class="product">
+            <img src="https://i.ibb.co/9VPXB6J/cq5dam-thumbnail-600-600.png">
+            <div class="year">2023</div>
+            <h3>Ninja ZX-10RR</h3>
+            <div class="details">
+                <ul>
+                    <li>Building on WSB-Proven Performance</li>
+                    <li>Styled for Aerodynamics</li>
+                    <li>Kawasaki’s Advanced Electronics</li>
+                    <li>SRP:₱1,550,000</li>
+                </ul>
+            </div>
+            <button onclick="openModal('NinjaZX10RR2023')">Choose options</button>
+        </div><div class="modal" id="NinjaZX10RR2023Modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('NinjaZX10RR2023')">x</span>
+                <img src="https://i.ibb.co/9VPXB6J/cq5dam-thumbnail-600-600.png">
+                <h3>Ninja ZX-10RR 2023</h3>
+                <div class="quantity">
+                    <label>Quantity:</label>
+                    <button onclick="decreaseQuantity('NinjaZX10RR2023')">-</button>
+                    <input type="number" value="1" min="1" id="quantityNinjaZX10RR2023">
+                    <button onclick="increaseQuantity('NinjaZX10RR2023')">+</button>
+                </div>
+                <button>Add to cart</button>
+            </div>
+        </div>
+        <div class="product">
+            <img src="https://i.ibb.co/J7Rz3Tk/cq5dam-thumbnail-600-600-4.png">
+            <div class="year">2023</div>
+            <h3>Ninja ZX-10R 40th Anniversary Edition</h3>
+            <div class="details">
+                <ul>
+                    <li>Building on WSB-Proven Performance</li>
+                    <li>Styled for Aerodynamics</li>
+                    <li>Kawasaki’s Advanced Electronics</li>
+                    <li>SRP:₱1,030,000</li>
+                </ul>
+            </div>
+            <button onclick="openModal('NinjaZX10R40thAnniversary')">Choose options</button>
+        </div>
+        <div class="modal" id="NinjaZX10R40thAnniversaryModal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('NinjaZX10R40thAnniversary')">x</span>
+                <img src="https://i.ibb.co/J7Rz3Tk/cq5dam-thumbnail-600-600-4.png">
+                <h3>Ninja ZX-10R 40th Anniversary</h3>
+                <div class="quantity">
+                    <label>Quantity:</label>
+                    <button onclick="decreaseQuantity('NinjaZX10R40thAnniversary')">-</button>
+                    <input type="number" value="1" min="1" id="quantityNinjaZX10R40thAnniversary">
+                    <button onclick="increaseQuantity('NinjaZX10R40thAnniversary')">+</button>
+                </div>
+                <button>Add to cart</button>
+            </div>
+        </div>
+        <div class="product">
+            <img src="https://i.ibb.co/3F6s3TZ/cq5dam-thumbnail-600-600-13.png">
+            <div class="year">2023</div>
+            <h3>Ninja ZX-10R</h3>
+            <div class="details">
+                <ul>
+                    <li>Building on WSB-Proven Performance</li>
+                    <li>Styled for Aerodynamics</li>
+                    <li>Kawasaki’s Advanced Electronics</li>
+                    <li>SRP:₱999,800</li>
+                </ul>
+            </div>
+            <button onclick="openModal('NinjaZX10R2023')">Choose options</button>
+        </div>
+        <div class="modal" id="NinjaZX10R2023Modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('NinjaZX10R2023')">x</span>
+                <img src="https://i.ibb.co/3F6s3TZ/cq5dam-thumbnail-600-600-13.png">
+                <h3>Ninja ZX-10R 2023</h3>
+                <div class="quantity">
+                    <label>Quantity:</label>
+                    <button onclick="decreaseQuantity('NinjaZX10R2023')">-</button>
+                    <input type="number" value="1" min="1" id="quantityNinjaZX10R2023">
+                    <button onclick="increaseQuantity('NinjaZX10R2023')">+</button>
+                </div>
+                <button>Add to cart</button>
+            </div>
+        </div>
+        <div class="product">
+            <img src="https://i.ibb.co/3492PXb/cq5dam-thumbnail-600-600-6.png">
+            <div class="year">2023</div>
+            <h3>Ninja H2 Carbon</h3>
+            <div class="details">
+                <ul>
+                    <li>998 CC In-Line Four Supercharged Engine</li>
+                    <li>Lightweight Trellis Frame</li>
+                    <li>Fully Adjustable High-Performance Racing Suspension</li>
+                    <li>SRP:1,640,000</li>
+                </ul>
+            </div>
+            <button onclick="openModal('NinjaH2Carbon2023')">Choose options</button>
+        </div>
+        <div class="modal" id="NinjaH2Carbon2023Modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('NinjaH2Carbon2023')">x</span>
+                <img src="https://i.ibb.co/3492PXb/cq5dam-thumbnail-600-600-6.png"> 
+                <h3>Ninja H2 Carbon 2023</h3>
+                <div class="quantity">
+                    <label>Quantity:</label>
+                    <button onclick="decreaseQuantity('NinjaH2Carbon2023')">-</button>
+                    <input type="number" value="1" min="1" id="quantityNinjaH2Carbon2023">
+                    <button onclick="increaseQuantity('NinjaH2Carbon2023')">+</button>
+                </div>
+                <button>Add to cart</button>
+            </div>
+        </div>
+        <div class="product">
+            <img src="https://i.ibb.co/QPwgbVH/cq5dam-thumbnail-600-600-7.png">
+            <div class="year">2023</div>
+            <h3>Ninja e-1</h3>
+            <div class="details">
+                <ul>
+                    <li>Electric Power</li>
+                    <li>Motorcycle Handling</li>
+                    <li>Kawasaki Ninja/Z Motorcycle Design</li>
+                    <li>SRP:₱400,000</li>
+                </ul>
+            </div>
+            <button onclick="openModal('NinjaE1')">Choose options</button>
+        </div>
+        <div class="modal" id="NinjaE1Modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('NinjaE1')">x</span>
+                <img src="https://i.ibb.co/QPwgbVH/cq5dam-thumbnail-600-600-7.png">
+                <h3>Ninja E-1</h3>
+                <div class="quantity">
+                    <label>Quantity:</label>
+                    <button onclick="decreaseQuantity('NinjaE1')">-</button>
+                    <input type="number" value="1" min="1" id="quantityNinjaE1">
+                    <button onclick="increaseQuantity('NinjaE1')">+</button>
+                </div>
+                <button>Add to cart</button>
+            </div>
+        </div>
+        <div class="product">
+            <img src="https://i.ibb.co/CPVcLbF/cq5dam-thumbnail-600-600-8.png">
+            <div class="year">2023</div>
+            <h3>Ninja 650</h3>
+            <div class="details">
+                <ul>
+                    <li>KTRC (Kawasaki Traction Control)</li>
+                    <li>Smartphone Connectivity</li>
+                    <li>TFT Colour Instrumentation</li>
+                    <li>SRP:₱452,000</li>
+                </ul>
+            </div>
+            <button onclick="openModal('Ninja650')">Choose options</button>
+        </div>
+        <div class="modal" id="Ninja650Modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('Ninja650')">x</span>
+                <img src="https://i.ibb.co/CPVcLbF/cq5dam-thumbnail-600-600-8.png">
+                <h3>Ninja 650</h3>
+                <div class="quantity">
+                    <label>Quantity:</label>
+                    <button onclick="decreaseQuantity('Ninja650')">-</button>
+                    <input type="number" value="1" min="1" id="quantityNinja650">
+                    <button onclick="increaseQuantity('Ninja650')">+</button>
+                </div>
+                <button>Add to cart</button>
+            </div>
+        </div>
+        <div class="product">
+            <img src="https://i.ibb.co/F595c9q/cq5dam-thumbnail-600-600-9.png">
+            <div class="year">2023</div>
+            <h3>Ninja 650</h3>
+            <div class="details">
+                <ul>
+                    <li>KTRC (Kawasaki Traction Control)</li>
+                    <li>Smartphone Connectivity</li>
+                    <li>TFT Colour Instrumentation</li>
+                    <li>SRP:₱452,000</li>
+                </ul>
+            </div>
+            <button onclick="openModal('Ninja6502023')">Choose options</button>
+        </div>
+        <div class="modal" id="Ninja6502023Modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('Ninja6502023')">x</span>
+                <img src="https://i.ibb.co/F595c9q/cq5dam-thumbnail-600-600-9.png">
+                <h3>Ninja 650 2023</h3>
+                <div class="quantity">
+                    <label>Quantity:</label>
+                    <button onclick="decreaseQuantity('Ninja6502023')">-</button>
+                    <input type="number" value="1" min="1" id="quantityNinja6502023">
+                    <button onclick="increaseQuantity('Ninja6502023')">+</button>
+                </div>
+                <button>Add to cart</button>
+            </div>
+        </div>
+        <div class="product">
+            <img src="https://i.ibb.co/kx3B75M/cq5dam-thumbnail-600-600-10.png">
+            <div class="year">2023</div>
+            <h3>Ninja 500 SE</h3>
+            <div class="details">
+                <ul>
+                    <li>New, Larger-Displacement Engine</li>
+                    <li>Lightweight, Manoeuvrable Chassis</li>
+                    <li>High-class, Intense Design</li>
+                    <li>SRP:₱379,600</li>
+                </ul>
+            </div>
+            <button onclick="openModal('Ninja500SE')">Choose options</button>
+        </div>
+        <div class="modal" id="Ninja500SEModal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('Ninja500SE')">x</span>
+                <img src="https://i.ibb.co/kx3B75M/cq5dam-thumbnail-600-600-10.png">
+                <h3>Ninja 500 SE</h3>
+                <div class="quantity">
+                    <label>Quantity:</label>
+                    <button onclick="decreaseQuantity('Ninja500SE')">-</button>
+                    <input type="number" value="1" min="1" id="quantityNinja500SE">
+                    <button onclick="increaseQuantity('Ninja500SE')">+</button>
+                </div>
+                <button>Add to cart</button>
+            </div>
+        </div>
+        <div class="product">
+            <img src="https://i.ibb.co/5kLD3nJ/cq5dam-thumbnail-600-600-11.png">
+            <div class="year">2023</div>
+            <h3>Ninja 500</h3>
+            <div class="details">
+                <ul>
+                    <li>New, Larger-Displacement Engine</li>
+                    <li>Lightweight, Manoeuvrable Chassis</li>
+                    <li>High-class, Intense Design</li>
+                    <li>SRP:₱353,800</li>
+                </ul>
+            </div>
+            <button onclick="openModal('Ninja500')">Choose options</button>
+        </div>
+        <div class="modal" id="Ninja500Modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('Ninja500')">x</span>
+                <img src="https://i.ibb.co/5kLD3nJ/cq5dam-thumbnail-600-600-11.png">
+                <h3>Ninja 500</h3>
+                <div class="quantity">
+                    <label>Quantity:</label>
+                    <button onclick="decreaseQuantity('Ninja500')">-</button>
+                    <input type="number" value="1" min="1" id="quantityNinja500">
+                    <button onclick="increaseQuantity('Ninja500')">+</button>
+                </div>
+                <button>Add to cart</button>
+            </div>
+        </div>
+        <div class="product">
+            <img src="https://i.ibb.co/Lpf3QJW/cq5dam-thumbnail-600-600-12.png">
+            <div class="year">2023</div>
+            <h3>Ninja 1000SX</h3>
+            <div class="details">
+                <ul>
+                    <li>Ninja-Inspired Styling and Peformance</li>
+                    <li>Everyday Versatility and Enhanced Touring Performance</li>
+                    <li>Advanced Electronics</li>
+                    <li>SRP:₱718,000</li>
+                </ul>
+            </div>
+            <button onclick="openModal('Ninja1000SX')">Choose options</button>
+        </div>
+    </div>
+    <div class="modal" id="Ninja1000SXModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('Ninja1000SX')">x</span>
+            <img src="https://i.ibb.co/Lpf3QJW/cq5dam-thumbnail-600-600-12.png">
+            <h3>Ninja 1000SX</h3>
+            <div class="quantity">
+                <label>Quantity:</label>
+                <button onclick="decreaseQuantity('Ninja1000SX')">-</button>
+                <input type="number" value="1" min="1" id="quantityNinja1000SX">
+                <button onclick="increaseQuantity('Ninja1000SX')">+</button>
+            </div>
+            <button>Add to cart</button>
+        </div>
+    </div>
+    <script>
+        function openModal(productName) {
+            document.getElementById(productName + 'Modal').style.display = 'flex';
+        }
+
+        function closeModal(productName) {
+            document.getElementById(productName + 'Modal').style.display = 'none';
+        }
+
+        function increaseQuantity(productName) {
+            const input = document.getElementById('quantity' + productName);
+            input.value = parseInt(input.value) + 1;
+        }
+
+        function decreaseQuantity(productName) {
+            const input = document.getElementById('quantity' + productName);
+            if (input.value > 1) {
+                input.value = parseInt(input.value) - 1;
+            }
+        }
+    </script>
+</body>
+</html>
